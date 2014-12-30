@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="big_shots">
+        <item>Terry Brown</item>
+        <item>John Clements</item>
+        <item>Ramon Martinez</item>
+        <item>Paul MacDonald</item>
+        <item>Christian Tobler</item>
+        <item>Stephen Hand</item>
+        <item>Paul Wagner</item>
+        <item>Hemaboy</item>
+        <item>Paul Donaldson</item>
+        <item>Andrew Feest</item>
+        <item>Greg Mele</item>
+        <item>Adam Crown</item>
+        <item>Pete Kautz</item>
+    </string-array>
+</resources>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">HFPM</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- ListActivity -->
+    <string name="pool_title">Pools</string>
+    <string name="pool_list">Select or Create a Pool</string>
+    <string name="pool_instructions">You may create a new pool by clicking on the button in the action bar, above. Or, you may select from the pools below which are either finished or in progress.</string>
+    <string name="new_pool">New Pool</string>
+
+
+    <!-- SetupFragment -->
+    <string name="setup_title">Fencer Details</string>
+    <string name="new_fencer">New Fencer</string>
+    <string name="start_fencing">Start Fencing</string>
+    <string name="run_out">You win - I\'ve run out of names.</string>
+    <string name="too_big">This pool is already large enough.</string>
+
+
+</resources>
