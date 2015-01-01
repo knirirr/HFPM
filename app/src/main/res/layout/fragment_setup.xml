@@ -48,6 +48,15 @@
     </LinearLayout>
 
     <!-- Create a custom widget and several (set no. in settings) here. -->
+    <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/pool_name"
+            android:layout_gravity="center_horizontal"
+            android:hint="@string/pool_name"
+            android:layout_margin="5dp"
+            android:padding="5dp"/>
+
     <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">

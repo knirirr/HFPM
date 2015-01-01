@@ -15,12 +15,19 @@ import android.os.Build;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.dropbox.sync.android.DbxAccountManager;
+import com.dropbox.sync.android.DbxDatastoreManager;
+import com.dropbox.sync.android.DbxException;
+
 
 public class PoolActivity extends ActionBarActivity
 {
 
   public static String TAG = "HFPM Pool Activity";
   private long pool_id;
+
+  private DbxAccountManager mAccountManager;
+  private DbxDatastoreManager mDatastoreManager;
 
   @Override
   protected void onCreate(Bundle savedInstanceState)
@@ -32,6 +39,30 @@ public class PoolActivity extends ActionBarActivity
     if(extras !=null)
     {
       pool_id = extras.getLong("pool_id",0);
+    }
+
+    // Set up the account manager
+    mAccountManager = DbxAccountManager.getInstance(getApplicationContext(),
+        getString(R.string.app_key),
+        getString(R.string.app_secret));
+
+    // Set up the datastore manager
+    if (mAccountManager.hasLinkedAccount())
+    {
+      try
+      {
+        // Use Dropbox datastores
+        mDatastoreManager = DbxDatastoreManager.forAccount(mAccountManager.getLinkedAccount());
+      }
+      catch (DbxException.Unauthorized e)
+      {
+        System.out.println("Account was unlinked remotely");
+      }
+    }
+    if (mDatastoreManager == null)
+    {
+      // Account isn't linked yet, use local datastores
+      mDatastoreManager = DbxDatastoreManager.localManager(mAccountManager);
     }
 
     if (savedInstanceState == null)
@@ -83,6 +114,16 @@ public class PoolActivity extends ActionBarActivity
     }
 
     return super.onOptionsItemSelected(item);
+  }
+
+  public DbxAccountManager getAccountManager()
+  {
+    return mAccountManager;
+  }
+
+  public DbxDatastoreManager getDatastoreManager()
+  {
+    return mDatastoreManager;
   }
 
 

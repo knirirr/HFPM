@@ -12,14 +12,20 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.dropbox.sync.android.DbxAccountManager;
+import com.dropbox.sync.android.DbxDatastore;
 import com.dropbox.sync.android.DbxDatastoreManager;
 import com.dropbox.sync.android.DbxException;
+import com.dropbox.sync.android.DbxFields;
+import com.dropbox.sync.android.DbxRecord;
+import com.dropbox.sync.android.DbxTable;
+
+import java.util.Iterator;
 
 
 public class ListPoolActivity extends ActionBarActivity
 {
 
-  private static String TAG = "Historical Fencing (List)";
+  private static String TAG = "HFPM List Activity";
 
   private DbxAccountManager mAccountManager;
   private DbxDatastoreManager mDatastoreManager;
@@ -53,6 +59,15 @@ public class ListPoolActivity extends ActionBarActivity
       // Account isn't linked yet, use local datastores
       mDatastoreManager = DbxDatastoreManager.localManager(mAccountManager);
     }
+
+  }
+
+  @Override
+  public void onResume()
+  {
+    super.onResume();
+
+    listStuff();
   }
 
   @Override
@@ -85,6 +100,41 @@ public class ListPoolActivity extends ActionBarActivity
       return true;
     }
     return super.onOptionsItemSelected(item);
+  }
+
+  public void listStuff()
+  {
+    DbxDatastore datastore = null;
+    try
+    {
+      datastore = mDatastoreManager.openDefaultDatastore();
+      DbxTable poolTable = datastore.getTable("pools");
+      DbxTable userTable = datastore.getTable("users");
+      DbxTable.QueryResult results = poolTable.query();
+      DbxRecord result = null;
+      Iterator<DbxRecord> it = results.iterator();
+      while (it.hasNext())
+      {
+        DbxRecord firstResult = it.next();
+        Log.i(TAG, "Pool: " + firstResult.getId() + ", " + firstResult.getString("title") + ", " + firstResult.getString("date"));
+        DbxFields queryParams = new DbxFields().set("pool", firstResult.getId());
+        DbxTable.QueryResult user_results = userTable.query(queryParams);
+        Iterator<DbxRecord> again = user_results.iterator();
+        while (again.hasNext())
+        {
+          DbxRecord secondResult = again.next();
+          Log.i(TAG, "User: " + secondResult.getLong("number"));
+          Log.i(TAG, "Name: " + secondResult.getString("name"));
+          Log.i(TAG, "Vict: " + secondResult.getLong("victories"));
+        }
+      }
+      Log.i(TAG,"Finished!");
+      datastore.close();
+    }
+    catch (DbxException e)
+    {
+      Log.e(TAG, "Dropbox error: " + e.toString());
+    }
   }
 
 }

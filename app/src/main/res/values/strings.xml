@@ -18,6 +18,9 @@
     <string name="start_fencing">Start Fencing</string>
     <string name="run_out">You win - I\'ve run out of names.</string>
     <string name="too_big">This pool is already large enough.</string>
+    <string name="not_enough_users">A pool must have at least three users.</string>
+    <string name="pool_name">Pool Name</string>
+    <string name="name_please">Please provide a name for this pool.</string>
 
 
 </resources>
