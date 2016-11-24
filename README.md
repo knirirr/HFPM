@@ -2,4 +2,4 @@ This will eventually be an application for arranging and scoring pools, using va
 
 http://www.sirwilliamhope.org
 
-UNFINISHED - time is short, and I'll get round to finishing this eventually.
+UNFINISHED - time is short, and I'll get round to finishing this eventually. Perhaps.
